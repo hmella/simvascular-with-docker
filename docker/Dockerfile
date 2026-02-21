@@ -64,6 +64,9 @@ ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
 # USER simvascular
 WORKDIR /home/simvascular
 
+# Run install script to set up simvascular
+RUN /usr/local/sv/simvascular/2025-12-21/./setup-symlinks.sh 
+
 # # To allow matplotlib to run in a docker container
 # RUN export
 
