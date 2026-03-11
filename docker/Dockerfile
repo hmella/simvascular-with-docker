@@ -1,4 +1,4 @@
-# Download base image ubuntu 18.04
+# Download base image ubuntu 24.04
 FROM ubuntu:24.04 AS base
 ARG DEBIAN_FRONTEND=noninteractive
 LABEL org.opencontainers.image.authors="hernan.mella@pucv.cl"
