@@ -42,6 +42,8 @@ RUN apt-get update
 RUN apt-get install -y ubuntu-desktop-minimal
 RUN apt-get install -y libharfbuzz-dev libxcb-cursor0
 
+# NOTE: # ubuntu-desktop-minimal is needed to run simvascular, but it also installs a lot of unnecessary packages. We can try to find a more minimal set of dependencies later.
+
 # Copy the .deb file from the parent directory into the image
 COPY ../SimVascular-Ubuntu-24-2025.12.21.deb /home/simvascular/
 
@@ -60,19 +62,10 @@ ENV QTWEBENGINE_CHROMIUM_FLAGS="--no-sandbox"
 # Fix openmpi error messages
 ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
 
-# Change default user
-# USER simvascular
-WORKDIR /home/simvascular
-
 # Run install script to set up simvascular
 RUN /usr/local/sv/simvascular/2025-12-21/./setup-symlinks.sh 
 
-# # To allow matplotlib to run in a docker container
-# RUN export
-
-# In the host:
-#   xhost +local:docker
-#   docker run --rm -it --name test --device /dev/dri -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v $(pwd):/home/simvascular simvascular:latest
-
-# Inside the container:
-#   ../../usr/local/sv/simvascular/2025-12-21/./simvascular
+# Change default user
+# TODO: I don't know why root is needed to run simvascular, but if I change to simvascular user, it doesn't work. Maybe it's a permissions issue?. Fix later...
+#USER simvascular
+WORKDIR /home/simvascular
