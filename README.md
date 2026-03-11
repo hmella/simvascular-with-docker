@@ -43,6 +43,7 @@ docker run --rm -it \
   -v "$(pwd)":/home/simvascular \
   simvascular
 ```
+and then run `simvascular` inside the container to launch the application.
 
 ### Notes
 
